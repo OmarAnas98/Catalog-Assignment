@@ -1,0 +1,1 @@
+/home/omar-anas/Projects/Catalog-Assignment/my-app/vendor/magento/module-catalog/view/adminhtml/web/catalog/product.js

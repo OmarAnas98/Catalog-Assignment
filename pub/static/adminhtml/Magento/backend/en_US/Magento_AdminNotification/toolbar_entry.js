@@ -1,0 +1,1 @@
+/home/omar-anas/Projects/Catalog-Assignment/my-app/vendor/magento/module-admin-notification/view/adminhtml/web/toolbar_entry.js

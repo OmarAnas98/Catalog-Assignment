@@ -1,0 +1,13 @@
+/node_modules
+/phpserver
+/dev
+/generated
+/lib
+/pub
+/setup
+/var
+/vendor
+.git
+.idea
+.vscode
+
