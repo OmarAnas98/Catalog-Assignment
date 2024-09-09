@@ -108,9 +108,6 @@ class CreateProduct implements DataPatchInterface
             ->addAttributeToFilter('name', ['in' => $categoryTitles])
             ->getAllIds();
         $this->categoryLink->assignProductToCategories($product->getSku(), $categoryIds);
-
-
-        $this->categoryLink->assignProductToCategories($product->getSku(), [2]);
     }
 
     public static function getDependencies()
