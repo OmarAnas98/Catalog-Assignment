@@ -1,6 +1,6 @@
 <?php
 
-namespace myApp\ScandiwebTest\Setup\Patch\Data;
+namespace MyApp\ScandiwebTest\Setup\Patch\Data;
 
 use Magento\Catalog\Api\CategoryLinkManagementInterface;
 use Magento\Catalog\Api\Data\ProductInterfaceFactory;
@@ -20,26 +20,67 @@ use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory;
 
 class CreateProduct implements DataPatchInterface
 {
+    /**
+     * @var ProductInterfaceFactory
+     */
     protected ProductInterfaceFactory $productInterfaceFactory;
 
+    /**
+     * @var ProductRepositoryInterface
+     */
     protected ProductRepositoryInterface $productRepository;
 
+    /**
+     * @var State
+     */
     protected State $appState;
 
+    /**
+     * @var EavSetup
+     */
     protected EavSetup $eavSetup;
 
+    /**
+     * @var StoreManagerInterface
+     */
     protected StoreManagerInterface $storeManager;
 
+    /**
+     * @var SourceItemInterfaceFactory
+     */
     protected SourceItemInterfaceFactory $sourceItemFactory;
 
+    /**
+     * @var SourceItemsSaveInterface
+     */
     protected SourceItemsSaveInterface $sourceItemsSaveInterface;
 
+    /**
+     * @var CategoryLinkManagementInterface
+     */
     protected CategoryLinkManagementInterface $categoryLink;
 
+    /**
+     * @var CollectionFactory
+     */
     protected CollectionFactory $categoryCollectionFactory;
 
+    /**
+     * @var array
+     */
     protected array $sourceItems = [];
 
+    /**
+     * @param State $appState
+     * @param ProductInterfaceFactory $productInterfaceFactory
+     * @param ProductRepositoryInterface $productRepository
+     * @param StoreManagerInterface $storeManager
+     * @param EavSetup $eavSetup
+     * @param SourceItemInterfaceFactory $sourceItemFactory
+     * @param SourceItemsSaveInterface $sourceItemsSaveInterface
+     * @param CategoryLinkManagementInterface $categoryLink
+     * @param CollectionFactory $categoryCollectionFactory
+     */
     public function __construct(
         State $appState,
         ProductInterfaceFactory $productInterfaceFactory,
@@ -62,12 +103,25 @@ class CreateProduct implements DataPatchInterface
         $this->categoryCollectionFactory = $categoryCollectionFactory;
     }
 
-    public function apply()
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    public function apply(): void
     {
         $this->appState->emulateAreaCode('adminhtml', [$this, 'execute']);
     }
 
-    public function execute()
+    /**
+     * @return void
+     * @throws \Magento\Framework\Exception\CouldNotSaveException
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws \Magento\Framework\Exception\StateException
+     * @throws \Magento\Framework\Validation\ValidationException
+     */
+    public function execute(): void
     {
         $product = $this->productInterfaceFactory->create();
         $attributeSetId = $this->eavSetup->getAttributeSetId(Product::ENTITY, 'Default');
@@ -110,12 +164,18 @@ class CreateProduct implements DataPatchInterface
         $this->categoryLink->assignProductToCategories($product->getSku(), $categoryIds);
     }
 
-    public static function getDependencies()
+    /**
+     * @return array|string[]
+     */
+    public static function getDependencies(): array
     {
         return [];
     }
 
-    public function getAliases()
+    /**
+     * @return array|string[]
+     */
+    public function getAliases(): array
     {
         return [];
     }
